@@ -6,7 +6,7 @@ export class Queue<Type> implements IQueue {
     constructor(...args: Type[]) {
         this.queue = [...args];
     }
-
+    
     size(): number {
         return this.queue.length;
     }
@@ -21,5 +21,15 @@ export class Queue<Type> implements IQueue {
 
     peek(): Type {
         return this.queue[0];
+    }
+
+    // TODO: isEmpty()
+    isEmpty(): boolean {
+        return false;
+    }
+
+    // TODO: isFull()
+    isFull(): boolean  {
+        return false;
     }
 }
