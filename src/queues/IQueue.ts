@@ -3,4 +3,6 @@ export interface IQueue {
     dequeue: () => any | undefined;
     peek: () => any | undefined;
     size: () => number;
+    isEmpty: () => boolean;
+    isFull: () => boolean;
 }
