@@ -4,15 +4,16 @@ describe('tests with strings', () => {
     const stack = new Stack<string>("c", "b", "a")
 
     it(' should push some items on the stack ', () => {
-        stack.push("d");
+        expect(stack.push("d")).toBe(4);
+        expect(stack.size()).toBe(4)
         expect(typeof stack.top()).toBe("string")
         expect(stack.top()).toBe("d")
-        expect(stack.size()).toBe(4)
 
-        stack.push("e")
+
+        expect(stack.push("e")).toBe(5)
+        expect(stack.size()).toBe(5)
         expect(typeof stack.top()).toBe("string")
         expect(stack.top()).toBe("e")
-        expect(stack.size()).toBe(5)
 
         //stack.contents.map((elt: string) => console.log(elt))
     })
