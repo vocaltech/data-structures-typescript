@@ -11,6 +11,7 @@
     "build": "tsc --project ./",
     "prepare": "npm run build",
     "test-queue-generic": "jest --runInBand ./src/queues/tests/QueueGeneric.spec.ts",
+    "test-stack-generic": "jest --runInBand ./src/stacks/tests/StackGeneric.spec.ts",
     "queue-location-wkf": "ts-node ./src/queues/tests/QueueLocationWorkflow.ts"
   },
   "repository": {
