@@ -2,9 +2,11 @@ import { IStack } from "./IStack";
 
 export class Stack<T> implements IStack<T> {
     private stack: T[];
+    private maxLimit: number = 0;
 
-    constructor(...args: T[]) {
-        this.stack = [...args]
+    constructor(maxLimit: number) {
+        this.maxLimit = maxLimit
+        this.stack = []
     }
 
     get contents() {
@@ -15,8 +17,8 @@ export class Stack<T> implements IStack<T> {
         return this.stack.length
     }
 
-    push(item: T): number {
-        return this.stack.unshift(item)
+    push(...items: T[]): number {
+        return this.stack.unshift(...items)
     }
 
     pop(): T {
@@ -27,9 +29,8 @@ export class Stack<T> implements IStack<T> {
         return this.stack[0]
     }
 
-    // TODO: isEmpty()
     isEmpty(): boolean {
-        return false
+        return (this.size() === 0 ? true: false)
     }
 
     // TODO: isFull()
