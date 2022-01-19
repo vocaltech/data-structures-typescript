@@ -1,9 +1,15 @@
 import { Stack } from "../Stack"
 
 describe('tests with strings', () => {
-    const stack = new Stack<string>("c", "b", "a")
-
+    const stack = new Stack<string>(3);
+    
     it(' should push some items on the stack ', () => {
+        expect(stack.isEmpty()).toBe(true);
+
+        stack.push("c", "b", "a");
+
+        expect(stack.isEmpty()).toBe(false);
+
         expect(stack.push("d")).toBe(4);
         expect(stack.size()).toBe(4)
         expect(typeof stack.top()).toBe("string")
