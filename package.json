@@ -1,7 +1,10 @@
 {
   "name": "@vocaltech/data-structures",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "Data structures implementations",
+  "keywords": [
+    "data-structures", "stack", "queue"
+  ],
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "files": [
