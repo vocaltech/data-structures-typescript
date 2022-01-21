@@ -40,3 +40,19 @@ stack.size(); // returns 4
 // remove the top of the stack
 stack.pop(); // returns "d"
 ```
+
+> ### Linked lists (simple)
+
+**Usage with generics:**
+
+```
+// constructor
+const list = new LinkedListSimple<string>()
+
+// insert item at first position
+list.insertFirst("item1")
+
+// check if list isEmpty()
+list.isEmpty() // return false
+
+```
