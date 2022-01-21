@@ -22,7 +22,7 @@ export class LinkedListSimple<T> implements ILinkedList<T> {
 
 
     isEmpty(): boolean {
-        throw new Error('Not yet implemented')
+        return (this._head.next === this._tail ? true: false)
     }
 
     getFirst(): T | null {
