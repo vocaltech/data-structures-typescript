@@ -20,25 +20,59 @@ export class LinkedListSimple<T> implements ILinkedList<T> {
         return this._tail
     }
 
+    // visual representation of the linked list
+    contents(): string {
+        let linkedListStr = ''
+
+        let curNode = this._head;
+        linkedListStr = 'HEAD --> '
+
+        while (curNode.next !== this._tail) {
+            curNode = curNode.next!
+            linkedListStr += '[Node: ' + curNode.item + '] --> '
+        }
+
+        linkedListStr += 'TAIL'
+
+        return linkedListStr
+    }
 
     isEmpty(): boolean {
         return (this._head.next === this._tail ? true: false)
     }
 
     getFirst(): T | null {
-        throw new Error('Not yet implemented')
+        return (this.isEmpty() ? null: this._head.next!.item)
+    }
+
+    getLast(): T | null {
+        let curNode = this._head;
+
+        while (curNode.next !== this._tail) {
+            curNode = curNode.next!
+        }
+
+        return curNode.item
     }
 
     insertFirst(item: T) {
         const newNode = new Node(item)
 
         newNode.next = this._head.next
-        this._head.next = newNode
-        
+        this._head.next = newNode  
     }
 
     insertLast(item: T) {
-        throw new Error('Not yet implemented')
+        const newNode = new Node<T>(item)
+
+        let curNode = this._head;
+
+        while (curNode.next !== this._tail) {
+            curNode = curNode.next!
+        }
+
+        newNode.next = this._tail
+        curNode.next = newNode;
     }
 
     removeFirst(): T | null {
