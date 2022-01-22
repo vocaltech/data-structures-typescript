@@ -5,19 +5,19 @@
 
 ```
 // constructor
-let q = new Queue<string>("v", "o")
+let q = new Queue<string>('v', 'o')
 
 // enqueue 1 string and returns the size of queue
-q.enqueue("c"); // returns 3
+q.enqueue('c'); // returns 3
 
 // returns the head of the queue (without dequeuing)
-q.peek(); // returns "v"
+q.peek(); // returns 'v'
 
 // returns the size of the queue
 queue.size(); // returns 3
 
 // dequeue
-queue.dequeue(); // returns "v"
+queue.dequeue(); // returns 'v'
 ```
 
 > ### Stacks
@@ -26,19 +26,19 @@ queue.dequeue(); // returns "v"
 
 ```
 // constructor
-const stack = new Stack<string>("c", "b", "a")
+const stack = new Stack<string>('c', 'b', 'a')
 
 // push 1 string and returns the size of stack
-stack.push("d"); // returns 4
+stack.push('d'); // returns 4
 
 // returns the top of the stack (without removing)
-stack.top(); // returns "d"
+stack.top(); // returns 'd'
 
 // returns the size of the stack
 stack.size(); // returns 4
 
 // remove the top of the stack
-stack.pop(); // returns "d"
+stack.pop(); // returns 'd'
 ```
 
 > ### Linked lists (simple)
@@ -50,9 +50,21 @@ stack.pop(); // returns "d"
 const list = new LinkedListSimple<string>()
 
 // insert item at first position
-list.insertFirst("item1")
+list.insertFirst('item1')
+
+// get item at first position
+list.getFirst() // return item1
 
 // check if list isEmpty()
 list.isEmpty() // return false
+
+// insert item at last position
+list.insertLast('item2')
+
+// get item at last position
+list.getLast() // return item2
+
+// check if list contains item
+list.contains('item2') // return true
 
 ```
