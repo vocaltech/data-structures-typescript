@@ -6,4 +6,5 @@ export interface ILinkedList<T> {
     contains: (searchItem: T) => boolean;
     isEmpty: () => boolean;
     getFirst: () => T | null;
+    getLast: () => T | null;
 }
