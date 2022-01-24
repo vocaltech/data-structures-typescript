@@ -9,7 +9,7 @@ export class Stack<T> implements IStack<T> {
         this.stack = []
     }
 
-    get contents() {
+    get contents(): T[] {
         return this.stack
     }
 
