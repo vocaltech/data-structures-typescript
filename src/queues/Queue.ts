@@ -1,31 +1,34 @@
 import { IQueue } from "./IQueue";
 
-export class Queue<Type> implements IQueue {
-    private queue: Type[];
+export class Queue<T> implements IQueue<T> {
+    private queue: T[];
 
-    constructor(...args: Type[]) {
+    constructor(...args: T[]) {
         this.queue = [...args];
+    }
+
+    contents(): T[] {
+        return this.queue
     }
     
     size(): number {
         return this.queue.length;
     }
 
-    enqueue(...args: Type[]): number {
+    enqueue(...args: T[]): number {
         return this.queue.push(...args);
     }
 
-    dequeue(): Type {
-        return <Type>this.queue.shift();
+    dequeue(): T {
+        return <T>this.queue.shift();
     }
 
-    peek(): Type {
+    peek(): T {
         return this.queue[0];
     }
 
-    // TODO: isEmpty()
     isEmpty(): boolean {
-        return false;
+        return (this.queue.length === 0 ? true: false)
     }
 
     // TODO: isFull()
