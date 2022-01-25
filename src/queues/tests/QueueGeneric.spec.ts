@@ -1,5 +1,5 @@
 import { Queue } from '../Queue';
-import { Location } from './models/Location'
+import { Location } from '../../common/models/Location'
 
 describe('tests with numbers', () => {
     const queue = new Queue<number>()
