@@ -1,9 +1,9 @@
 import { Node } from '../Node';
 import { LinkedListSimple } from "../LinkedListSimple";
 
-describe('insertFirst tests ', () => {
-    const list = new LinkedListSimple<string>()
+const list = new LinkedListSimple<string>()
 
+describe('insertFirst() and getFirst() tests ', () => {
     it(' should return initial head and tail', () => {
         expect(list.head.item).toBeNull()
         expect(list.head.next).toBe(list.tail)
@@ -16,14 +16,6 @@ describe('insertFirst tests ', () => {
         expect(list.isEmpty()).toBeTruthy()
     });
 
-    it(' should getFirst() and return null', () => {
-        expect(list.getFirst()).toBeNull()
-    }); 
-
-    it('should getLast() and return null', () => {
-        expect(list.getLast()).toBeNull()
-    }); 
-    
     it(' should insertFirst a new node', () => {
         list.insertFirst("item1")
 
@@ -35,6 +27,10 @@ describe('insertFirst tests ', () => {
         expect(list.isEmpty()).toBeFalsy()
     });
 
+    it(' should getFirst() ', () => {
+        expect(list.getFirst()).toBe("item1")
+    }); 
+
     it(' should insertFirst another new node', () => {
         list.insertFirst("item2")
 
@@ -45,7 +41,9 @@ describe('insertFirst tests ', () => {
     it(' should getFirst() ', () => {
         expect(list.getFirst()).toBe("item2")
     }); 
+});
 
+describe('insertLast() and getLast() tests', () => {
     it(' should insertLast() an item', () => {
         list.insertLast("item3")
         console.log(list.contents());
@@ -54,7 +52,7 @@ describe('insertFirst tests ', () => {
     it(' should getLast()', () => {
         expect(list.getLast()).toBe("item3")
     });
-    
+
     it(' should insertLast() another item', () => {
         list.insertLast("item4")
         console.log(list.contents());
@@ -63,5 +61,27 @@ describe('insertFirst tests ', () => {
     it(' should getLast() and return item4', () => {
         expect(list.getLast()).toBe("item4")
     });
-    
+});
+
+describe('contains() tests', () => {
+  it(' contains("item2") should be true', () => {
+    expect(list.contains('item2')).toBeTruthy()
+  });
+
+  
+  it(' contains("item1") should be true', () => {
+    expect(list.contains('item1')).toBeTruthy()
+  });
+
+  it(' contains("item3") should be true', () => {
+    expect(list.contains('item3')).toBeTruthy()
+  });
+
+  it(' contains("item4") should be true', () => {
+    expect(list.contains('item4')).toBeTruthy()
+  });
+
+  it(' contains("item5") should be false', () => {
+    expect(list.contains('item5')).toBeFalsy();
+  });
 });
