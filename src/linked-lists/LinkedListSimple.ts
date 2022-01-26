@@ -84,6 +84,15 @@ export class LinkedListSimple<T> implements ILinkedList<T> {
     }
 
     contains(searchItem: T): boolean {
-        throw new Error('Not yet implemented')
+        let curNode = this._head;
+
+        while (curNode !== this._tail) {
+            if (curNode.item === searchItem) {
+                return true;
+            }
+
+            curNode = curNode.next!
+        }
+        return false;
     }
 }
