@@ -2,8 +2,43 @@ import { Queue } from '../Queue';
 import { Location } from '../../common/models/Location'
 
 describe('tests with numbers', () => {
-    const queue = new Queue<number>()
+    //const queue = new Queue<number>()
+    let queue: Queue<number>;
 
+    // TODO: test queue with fixed-length
+    it(' should construct a queue with fixed-length', () => {
+      queue = new Queue<number>(4);
+      const maxSize = queue.getMaxSize();
+      console.log(`maxSize: ${maxSize} / length: ${queue.size()}`);
+
+      queue.enqueue(9, 3);
+      console.log(queue.contents());
+
+      queue.enqueue(2);
+      console.log(queue.contents());
+
+      queue.enqueue(5, 7);
+      console.log(queue.contents());
+
+      queue.enqueue(8, 6);
+      console.log(queue.contents());
+    });
+
+    // TODO: isFull() test
+    test(' isFull() should be true', () => {
+
+    });
+    
+    it(' should construct a queue without fixed-length', () => {
+        queue = new Queue<number>();
+        const maxSize = queue.getMaxSize();
+        console.log(`maxSize: ${maxSize} / length: ${queue.size()}`);
+  
+        queue.enqueue(9, 3);
+        console.log(queue.contents());
+        console.log(`maxSize: ${maxSize} / length: ${queue.size()}`);
+    });
+    
     it(' should enqueue some numbers', () => {
         expect(queue.isEmpty()).toBeTruthy()
         expect(queue.size()).toBe(0)
@@ -35,6 +70,7 @@ describe('tests with numbers', () => {
     });
 })
 
+/*
 // TODO: tests with strings
 describe.skip('tests with strings', () => {
     it('should enqueue 1 string', () => {
@@ -64,4 +100,4 @@ describe.skip('tests with locations', () => {
         expect(queue.peek().longitude).toBe(1.5)
     })    
 })
-
+*/
