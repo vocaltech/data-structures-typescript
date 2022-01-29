@@ -8,22 +8,53 @@ describe('tests with numbers', () => {
     // TODO: test queue with fixed-length
     it(' should construct a queue with fixed-length', () => {
       queue = new Queue<number>(4);
+
       const maxSize = queue.getMaxSize();
       console.log(`maxSize: ${maxSize} / length: ${queue.size()}`);
 
       queue.enqueue(9, 3);
+      expect(queue.isFull()).toBeFalsy();
       console.log(queue.contents());
 
       queue.enqueue(2);
+      expect(queue.isFull()).toBeFalsy();
       console.log(queue.contents());
 
       queue.enqueue(5, 7);
       console.log(queue.contents());
+      expect(queue.isFull()).toBeTruthy()
+
+      queue.enqueue(8, 6);
+      expect(queue.isFull()).toBeTruthy();
+      console.log(queue.contents());
+
+      let pk = queue.peek()
+      console.log(`peek: ${pk}`);
+
+      let dq = queue.dequeue();
+      console.log(`dq: ${dq}`);
+      console.log(queue.contents());
+      console.log(`maxSize: ${maxSize} / length: ${queue.size()}`);
+
+      dq = queue.dequeue();
+      console.log(`dq: ${dq}`);
+      console.log(queue.contents());
+      console.log(`maxSize: ${maxSize} / length: ${queue.size()}`);
+
+      dq = queue.dequeue();
+      console.log(`dq: ${dq}`);
+      console.log(queue.contents());
+      console.log(`maxSize: ${maxSize} / length: ${queue.size()}`);
+
+      queue.enqueue(9);
+      console.log(queue.contents());
 
       queue.enqueue(8, 6);
       console.log(queue.contents());
+
     });
 
+    /*
     // TODO: isFull() test
     test(' isFull() should be true', () => {
 
@@ -68,6 +99,7 @@ describe('tests with numbers', () => {
         expect(queue.size()).toBe(0)
         expect(queue.isEmpty()).toBeTruthy()
     });
+    */
 })
 
 /*
