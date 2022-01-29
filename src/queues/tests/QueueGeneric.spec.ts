@@ -1,28 +1,51 @@
 import { Queue } from '../Queue';
 import { Location } from '../../common/models/Location'
 
-describe('tests with numbers', () => {
-    //const queue = new Queue<number>()
+describe('tests numbers - with initial capacity ', () => {
     let queue: Queue<number>;
 
-    // TODO: test queue with initial capacity
     it(' should construct a queue with initial capacity', () => {
       queue = new Queue<number>(4);
 
       const capacity = queue.getCapacity();
-      console.log(`capacity: ${capacity} / length: ${queue.size()}`);
+      expect(capacity).toBe(4)
 
-      console.log('#### dequeue, after init ####');
-      console.log(`isEmpty: ${queue.isEmpty()}`);
-      let dq = queue.dequeue();
-      console.log(`dq: ${dq}`);
-      console.log(queue.contents());
+      const size = queue.size()
+      expect(size).toBe(0)
+    })
 
-      queue.enqueue(9, 3);
-      expect(queue.isFull()).toBeFalsy();
-      console.log(queue.contents());
-      console.log(`isEmpty: ${queue.isEmpty()}`);
+    it (' should dequeue after init', () => {
+        const isEmpty = queue.isEmpty();
+        expect(isEmpty).toBeTruthy()
 
+        let dq = queue.dequeue();
+        expect(dq).toBeNull()
+
+        console.log('--- should dequeue after init ---');
+        console.log(queue.contents());
+    })
+
+    it(' should peek after init', () => {
+        expect(queue.peek()).toBeNull();
+    });
+    
+
+    it(' should enqueue(9, 3)', () => {
+        let queueRes = queue.enqueue(9, 3);
+
+        expect(queue.isEmpty()).toBeFalsy()
+        expect(queue.isFull()).toBeFalsy();
+
+        expect(queueRes).toBe(2);
+        expect(queue.size()).toBe(2)
+
+        expect(queue.peek()).toBe(9)
+
+        console.log('--- should enqueue(9,3) --- ');
+        console.log(queue.contents());
+    });
+    
+/*
       queue.enqueue(2);
       expect(queue.isFull()).toBeFalsy();
       console.log(queue.contents());
@@ -65,6 +88,7 @@ describe('tests with numbers', () => {
       dq = queue.dequeue();
       console.log(`dq: ${dq}`);
       console.log(queue.contents());
+      */
 
       /*
       pk = queue.peek()
@@ -75,7 +99,6 @@ describe('tests with numbers', () => {
       console.log(queue.contents());
       console.log(`capacity: ${capacity} / length: ${queue.size()}`);
       */
-    });
 
     /*
     // TODO: isFull() test
