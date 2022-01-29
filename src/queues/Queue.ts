@@ -25,16 +25,20 @@ export class Queue<T> implements IQueue<T> {
     }
     
     size(): number {
-        return this.queue.length;
+        if (this.capacity === -1) { // no capacity defined
+            return this.queue.length;
+        } else {
+            return this.enqueueIdx;
+        }
+        
     }
 
-    // TODO: enqueue() => return 0 ???
     enqueue(...args: T[]): number {
         if (this.capacity === -1) { // no capacity defined
             return this.queue.push(...args);
         } else {
             if (this.isFull() ) {
-                return 0;
+                return this.capacity;
             }
 
             let curIdx = 0;
@@ -43,13 +47,12 @@ export class Queue<T> implements IQueue<T> {
                     break;
                 } else if (elt === undefined) {
                     this.queue[this.enqueueIdx] = args[curIdx];
-                    curIdx++;;
+                    curIdx++;
 
                     this.enqueueIdx++;
                 }
             }
-
-            return 0;
+            return this.enqueueIdx;
         }
     }
 
@@ -70,7 +73,7 @@ export class Queue<T> implements IQueue<T> {
     }
 
     peek(): T {
-        return this.queue[0];
+        return (this.isEmpty() ? null!: this.queue[0])
     }
 
     isEmpty(): boolean {
