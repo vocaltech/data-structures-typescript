@@ -11,6 +11,7 @@
     "dist"
   ],
   "scripts": {
+    "clean": "rd /s /q dist >nul 2>&1|echo.>nul",
     "build": "tsc --project ./",
     "prepare": "npm run build",
     "test-queue-generic": "jest --runInBand ./src/queues/tests/QueueGeneric.spec.ts",
