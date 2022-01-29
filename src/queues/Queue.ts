@@ -1,4 +1,3 @@
-import { anyTypeAnnotation } from "@babel/types";
 import { IQueue } from "./IQueue";
 
 export class Queue<T> implements IQueue<T> {
@@ -58,7 +57,7 @@ export class Queue<T> implements IQueue<T> {
             return <T>this.queue.shift();
         } else {
             this.enqueueIdx = 0;
-            
+
             const dequeue = this.queue[this.dequeueIdx];
             this.queue[this.dequeueIdx] = <T>undefined!;
             this.dequeueIdx++;
