@@ -5,16 +5,23 @@ describe('tests with numbers', () => {
     //const queue = new Queue<number>()
     let queue: Queue<number>;
 
-    // TODO: test queue with fixed-length
-    it(' should construct a queue with fixed-length', () => {
+    // TODO: test queue with initial capacity
+    it(' should construct a queue with initial capacity', () => {
       queue = new Queue<number>(4);
 
-      const maxSize = queue.getMaxSize();
-      console.log(`maxSize: ${maxSize} / length: ${queue.size()}`);
+      const capacity = queue.getCapacity();
+      console.log(`capacity: ${capacity} / length: ${queue.size()}`);
+
+      console.log('#### dequeue, after init ####');
+      console.log(`isEmpty: ${queue.isEmpty()}`);
+      let dq = queue.dequeue();
+      console.log(`dq: ${dq}`);
+      console.log(queue.contents());
 
       queue.enqueue(9, 3);
       expect(queue.isFull()).toBeFalsy();
       console.log(queue.contents());
+      console.log(`isEmpty: ${queue.isEmpty()}`);
 
       queue.enqueue(2);
       expect(queue.isFull()).toBeFalsy();
@@ -31,27 +38,43 @@ describe('tests with numbers', () => {
       let pk = queue.peek()
       console.log(`peek: ${pk}`);
 
-      let dq = queue.dequeue();
-      console.log(`dq: ${dq}`);
-      console.log(queue.contents());
-      console.log(`maxSize: ${maxSize} / length: ${queue.size()}`);
-
+      console.log('#### dequeue ####');
       dq = queue.dequeue();
       console.log(`dq: ${dq}`);
       console.log(queue.contents());
-      console.log(`maxSize: ${maxSize} / length: ${queue.size()}`);
 
+      console.log('#### dequeue ####');
       dq = queue.dequeue();
       console.log(`dq: ${dq}`);
       console.log(queue.contents());
-      console.log(`maxSize: ${maxSize} / length: ${queue.size()}`);
 
+      console.log('#### dequeue ####');
+      dq = queue.dequeue();
+      console.log(`dq: ${dq}`);
+      console.log(queue.contents());
+
+      console.log('### enqueue(9) ###');
       queue.enqueue(9);
       console.log(queue.contents());
-
+      
+      console.log('### enqueue(8, 6) ###');
       queue.enqueue(8, 6);
       console.log(queue.contents());
 
+      console.log('#### dequeue ####');
+      dq = queue.dequeue();
+      console.log(`dq: ${dq}`);
+      console.log(queue.contents());
+
+      /*
+      pk = queue.peek()
+      console.log(`peek: ${pk}`);
+
+      dq = queue.dequeue();
+      console.log(`dq: ${dq}`);
+      console.log(queue.contents());
+      console.log(`capacity: ${capacity} / length: ${queue.size()}`);
+      */
     });
 
     /*
