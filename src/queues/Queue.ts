@@ -2,14 +2,15 @@ import { IQueue } from "./IQueue";
 
 export class Queue<T> implements IQueue<T> {
     private queue: T[];
-    private maxSize: number = 0;
+    private capacity: number = -1;
     private enqueueIdx: number = 0;
     private dequeueIdx: number = 0;
 
-    constructor(maxSize?: number, ...args: T[]) {
-        if (maxSize) { // maxSize is defined
-            this.queue = new Array<T>(maxSize);
-            this.maxSize = maxSize;
+    constructor(capacity?: number, ...args: T[]) {
+        if (capacity) { // capacity is defined
+            this.queue = new Array<T>(capacity);
+            this.capacity = capacity;
+            this.dequeueIdx = capacity;
         } else {
             this.queue = [...args];
         }
@@ -19,8 +20,8 @@ export class Queue<T> implements IQueue<T> {
         return this.queue
     }
 
-    getMaxSize(): number {
-        return this.maxSize;
+    getCapacity(): number {
+        return this.capacity;
     }
     
     size(): number {
@@ -29,7 +30,7 @@ export class Queue<T> implements IQueue<T> {
 
     // TODO: enqueue() => return 0 ???
     enqueue(...args: T[]): number {
-        if (this.maxSize === 0) { // no maxSize defined
+        if (this.capacity === -1) { // no capacity defined
             return this.queue.push(...args);
         } else {
             if (this.isFull() ) {
@@ -53,16 +54,18 @@ export class Queue<T> implements IQueue<T> {
     }
 
     dequeue(): T {
-        if (this.maxSize === 0) { // no maxSize defined
+        if (this.capacity === -1) { // no capacity defined
             return <T>this.queue.shift();
         } else {
-            this.enqueueIdx = 0;
-
-            const dequeue = this.queue[this.dequeueIdx];
-            this.queue[this.dequeueIdx] = <T>undefined!;
-            this.dequeueIdx++;
-
-            return dequeue;
+            if (! this.isEmpty()) {
+                const dequeue = <T>this.queue.shift();
+                this.queue = [...this.queue, undefined!]
+                this.dequeueIdx--
+                this.enqueueIdx = this.dequeueIdx
+                return dequeue;
+            } else {
+                return null!;
+            }
         }
     }
 
@@ -71,10 +74,18 @@ export class Queue<T> implements IQueue<T> {
     }
 
     isEmpty(): boolean {
-        return (this.queue.length === 0 ? true: false)
+        if (this.capacity === -1) { // no capacity defined
+            return (this.queue.length === 0 ? true: false)
+        } else {
+            return (this.enqueueIdx === 0)
+        }
     }
 
     isFull(): boolean  {
-        return this.enqueueIdx === this.maxSize
+        if (this.capacity === -1) { // no capacity defined
+            return false
+        } else {
+            return this.enqueueIdx === this.capacity
+        }
     }
 }
