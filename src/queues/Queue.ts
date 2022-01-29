@@ -1,9 +1,11 @@
+import { anyTypeAnnotation } from "@babel/types";
 import { IQueue } from "./IQueue";
 
 export class Queue<T> implements IQueue<T> {
     private queue: T[];
     private maxSize: number = 0;
     private enqueueIdx: number = 0;
+    private dequeueIdx: number = 0;
 
     constructor(maxSize?: number, ...args: T[]) {
         if (maxSize) { // maxSize is defined
@@ -26,29 +28,43 @@ export class Queue<T> implements IQueue<T> {
         return this.queue.length;
     }
 
-    // TODO: enqueue()
+    // TODO: enqueue() => return 0 ???
     enqueue(...args: T[]): number {
         if (this.maxSize === 0) { // no maxSize defined
             return this.queue.push(...args);
         } else {
+            if (this.isFull() ) {
+                return 0;
+            }
+
             let curIdx = 0;
             for (const elt of this.queue) {
                 if (curIdx === args.length) {
                     break;
                 } else if (elt === undefined) {
-                    console.log(`undefined / curIdx: ${curIdx} / enqueueIdx: ${this.enqueueIdx} / args: ${args}`);
                     this.queue[this.enqueueIdx] = args[curIdx];
                     curIdx++;;
 
                     this.enqueueIdx++;
                 }
             }
+
             return 0;
         }
     }
 
     dequeue(): T {
-        return <T>this.queue.shift();
+        if (this.maxSize === 0) { // no maxSize defined
+            return <T>this.queue.shift();
+        } else {
+            this.enqueueIdx = 0;
+            
+            const dequeue = this.queue[this.dequeueIdx];
+            this.queue[this.dequeueIdx] = <T>undefined!;
+            this.dequeueIdx++;
+
+            return dequeue;
+        }
     }
 
     peek(): T {
@@ -60,6 +76,6 @@ export class Queue<T> implements IQueue<T> {
     }
 
     isFull(): boolean  {
-        return this.queue.length === this.maxSize
+        return this.enqueueIdx === this.maxSize
     }
 }
