@@ -1,7 +1,23 @@
 # Data structures using Typescript
 > ### Queues
 
-**Usage with generics:**
+**Constructor syntax**
+
+<code>constructor(capacity?: number, ...args: T[])</code>
+
+**Constructor - without initial capacity**
+```
+new Queue<string>()
+new Queue<string>('v', 'o'); // no capacity, with values
+
+```
+
+**Constructor - with initial capacity**
+```
+new Queue<string>(4); // initial capacity: 4
+new Queue<string>(4, 'v', 'o'); // initial capacity: 4, with values
+
+```
 
 ```
 // constructor
