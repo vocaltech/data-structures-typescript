@@ -8,7 +8,7 @@ describe('tests with numbers - initial capacity ', () => {
         it(' should construct a queue with initial capacity', () => {
             queue = new Queue<number>(4);
       
-            const capacity = queue.getCapacity();
+            const capacity = queue.capacity();
             expect(capacity).toBe(4)
       
             const size = queue.size()
@@ -38,12 +38,12 @@ describe('tests with numbers - initial capacity ', () => {
     
     describe('enqueue tests', () => {
         it(' should enqueue(9, 3)', () => {
-            let queueResult = queue.enqueue(9, 3);
+            let enqueueResult = queue.enqueue(9, 3);
     
             expect(queue.isEmpty()).toBeFalsy()
             expect(queue.isFull()).toBeFalsy();
     
-            expect(queueResult).toBe(2);
+            expect(enqueueResult).toBe(2);
             expect(queue.size()).toBe(2)
     
             expect(queue.peek()).toBe(9)
@@ -56,12 +56,12 @@ describe('tests with numbers - initial capacity ', () => {
         });
 
         it(' should enqueue(2)', () => {
-            let queueResult = queue.enqueue(2);
+            let enqueueResult = queue.enqueue(2);
 
             expect(queue.isEmpty()).toBeFalsy()
             expect(queue.isFull()).toBeFalsy();
     
-            expect(queueResult).toBe(3);
+            expect(enqueueResult).toBe(3);
             expect(queue.size()).toBe(3)
     
             expect(queue.peek()).toBe(9)
@@ -74,12 +74,12 @@ describe('tests with numbers - initial capacity ', () => {
         });
 
         it(' should enqueue(5, 7, 8, 1)', () => {
-            let queueResult = queue.enqueue(5, 7, 8, 1);
+            let enqueueResult = queue.enqueue(5, 7, 8, 1);
 
             expect(queue.isEmpty()).toBeFalsy()
             expect(queue.isFull()).toBeTruthy();
     
-            expect(queueResult).toBe(4);
+            expect(enqueueResult).toBe(4);
             expect(queue.size()).toBe(4)
     
             expect(queue.peek()).toBe(9)
@@ -98,9 +98,6 @@ describe('tests with numbers - initial capacity ', () => {
             expect(queue.peek()).toBe(9)
             expect(queue.dequeue()).toBe(9)
             expect(queue.contents()).toEqual([3, 2, 5, undefined])
-
-            console.log('--- dequeue 1 ---');
-            console.log(queue.contents());
         });
 
         it(' should dequeue 2', () => {
@@ -108,9 +105,6 @@ describe('tests with numbers - initial capacity ', () => {
             expect(queue.peek()).toBe(3)
             expect(queue.dequeue()).toBe(3)
             expect(queue.contents()).toEqual([2, 5, undefined, undefined])
-
-            console.log('--- dequeue 2 ---');
-            console.log(queue.contents());
         });
 
         it(' should dequeue 3', () => {
@@ -118,9 +112,6 @@ describe('tests with numbers - initial capacity ', () => {
             expect(queue.peek()).toBe(2)
             expect(queue.dequeue()).toBe(2)
             expect(queue.contents()).toEqual([5, undefined, undefined, undefined])
-
-            console.log('--- dequeue 3 ---');
-            console.log(queue.contents());
         });
 
         it(' should dequeue 4', () => {
@@ -129,9 +120,6 @@ describe('tests with numbers - initial capacity ', () => {
             expect(queue.dequeue()).toBe(5)
             expect(queue.contents()).toEqual([undefined, undefined, undefined, undefined])
             expect(queue.isEmpty()).toBeTruthy();
-
-            console.log('--- dequeue 4 ---');
-            console.log(queue.contents());
         });
 
         it(' should dequeue empty and return null', () => {
@@ -140,41 +128,33 @@ describe('tests with numbers - initial capacity ', () => {
         });
     });
 
-    describe('tests with enqueue/dequeue', () => {
-        // TODO: tests with enqueue/dequeue
+    describe('tests with mixins enqueue/dequeue', () => {
+        it(' should enqueue some values', () => {
+            let enqueueResult = queue.enqueue(9)
+            expect(queue.size()).toBe(1);
+            expect(enqueueResult).toBe(1);
+            expect(queue.contents()).toEqual([9, undefined, undefined, undefined])
+            
+            enqueueResult = queue.enqueue(8, 6);
+            expect(enqueueResult).toBe(3)
+            expect(queue.size()).toBe(3)
+            expect(queue.contents()).toEqual([9, 8, 6, undefined])
+        });
+
+        it(' should dequeue some values', () => {
+            expect(queue.peek()).toBe(9)
+            expect(queue.dequeue()).toBe(9)
+            expect(queue.contents()).toEqual([8, 6, undefined, undefined])
+
+            expect(queue.peek()).toBe(8)
+            expect(queue.dequeue()).toBe(8)
+            expect(queue.size()).toBe(1)
+            expect(queue.capacity()).toBe(4)
+            expect(queue.contents()).toEqual([6, undefined, undefined, undefined])
+        });        
     });
     
-    
-/*
-      console.log('### enqueue(9) ###');
-      queue.enqueue(9);
-      console.log(queue.contents());
-      
-      console.log('### enqueue(8, 6) ###');
-      queue.enqueue(8, 6);
-      console.log(queue.contents());
-
-      console.log('#### dequeue ####');
-      dq = queue.dequeue();
-      console.log(`dq: ${dq}`);
-      console.log(queue.contents());
-      */
-
-      /*
-      pk = queue.peek()
-      console.log(`peek: ${pk}`);
-
-      dq = queue.dequeue();
-      console.log(`dq: ${dq}`);
-      console.log(queue.contents());
-      console.log(`capacity: ${capacity} / length: ${queue.size()}`);
-      */
-
     /*
-    // TODO: isFull() test
-    test(' isFull() should be true', () => {
-
-    });
     
     it(' should construct a queue without fixed-length', () => {
         queue = new Queue<number>();
