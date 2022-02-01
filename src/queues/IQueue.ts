@@ -3,6 +3,7 @@ export interface IQueue<T> {
     dequeue: () => T;
     peek: () => T;
     size: () => number;
+    capacity: () => number;
     isEmpty: () => boolean;
     isFull: () => boolean;
 }
