@@ -2,11 +2,13 @@ import { IStack } from "./IStack";
 
 export class Stack<T> implements IStack<T> {
     private stack: T[];
-    private maxLimit: number = 0;
+    private _capacity: number = -1;
 
-    constructor(maxLimit: number) {
-        this.maxLimit = maxLimit
-        this.stack = []
+    constructor(capacity?: number, ...args: T[]) {
+        if (capacity) {
+            this._capacity = capacity;
+        }
+        this.stack = [...args]
     }
 
     get contents(): T[] {
@@ -14,27 +16,50 @@ export class Stack<T> implements IStack<T> {
     }
 
     size(): number {
-        return this.stack.length
+        if (this._capacity === -1) { // no capacity defined
+            return this.stack.length
+        } else {
+            return 0
+        }
+    }
+
+    capacity(): number {
+        return this._capacity
     }
 
     push(...items: T[]): number {
-        return this.stack.unshift(...items)
+        if (this._capacity === -1) { // no capacity defined
+            return this.stack.unshift(...items)
+        } else {
+            return 0
+        }
     }
 
     pop(): T {
-        return <T>this.stack.shift()
+        if (this._capacity === -1) { // no capacity defined
+            return <T>this.stack.shift()
+        } else {
+            return null!
+        }
     }
 
     top(): T {
-        return this.stack[0]
+        return (this.isEmpty() ? null!: this.stack[0])
     }
 
     isEmpty(): boolean {
-        return (this.size() === 0 ? true: false)
+        if (this._capacity === -1) { // no capacity defined
+            return (this.size() === 0 ? true: false)
+        } else {
+            return false
+        }
     }
 
-    // TODO: isFull()
     isFull(): boolean {
-        return false
+        if (this._capacity === -1) { // no capacity defined
+            return false
+        } else {
+            return true;
+        }
     }
 }
