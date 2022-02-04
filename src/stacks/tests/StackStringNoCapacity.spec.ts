@@ -33,7 +33,7 @@ describe('tests with strings - no capacity', () => {
     });
 
     describe('constructor2 with some checks', () => {
-        it(' should construct a queue without capacity, with args', () => {
+        it(' should construct a stack without capacity, with args', () => {
             stack = new Stack(-1, '1', '2', '3')
 
             expect(stack.capacity()).toBe(-1)
