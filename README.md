@@ -19,6 +19,7 @@ new Queue<string>(4, 'v', 'o'); // initial capacity: 4, with values
 
 ```
 
+**Usage**
 ```
 // constructor
 let q = new Queue<string>('v', 'o')
@@ -38,11 +39,29 @@ queue.dequeue(); // returns 'v'
 
 > ### Stacks
 
-**Usage with generics:**
+**Constructor syntax**
+
+<code>constructor(capacity?: number, ...args: T[])</code>
+
+**Constructor - without initial capacity**
+```
+new Stack<string>()
+new Stack<string>(-1, 'v', 'o'); // no capacity, with 2 initial values
+
+```
+
+**Constructor - with initial capacity**
+```
+new Stack<string>(4); // initial capacity: 4
+new Stack<string>(4, 'v', 'o'); // initial capacity: 4, with values
+
+```
+
+**Usage**
 
 ```
 // constructor
-const stack = new Stack<string>('c', 'b', 'a')
+const stack = new Stack<string>(-1, 'c', 'b', 'a')
 
 // push 1 string and returns the size of stack
 stack.push('d'); // returns 4
