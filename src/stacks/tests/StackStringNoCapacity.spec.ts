@@ -65,44 +65,77 @@ describe('tests with strings - no capacity', () => {
           
         });      
     });
+
+    describe('push tests', () => {
+        it(' should push some items on the stack ', () => {
+            stack = new Stack()
+
+            expect(stack.isEmpty()).toBe(true);
     
-    /*
-    it(' should push some items on the stack ', () => {
-        expect(stack.isEmpty()).toBe(true);
+            let pushResult = stack.push("c", "b", "a");
+    
+            expect(stack.isEmpty()).toBe(false);
+            expect(stack.isFull()).toBeFalsy()
+            expect(pushResult).toBe(3)
+            expect(stack.size()).toBe(3)
+            expect(stack.contents).toEqual(["c", "b", "a"])
+    
+            pushResult = stack.push("d")
 
-        stack.push("c", "b", "a");
+            expect(stack.isEmpty()).toBe(false);
+            expect(stack.isFull()).toBeFalsy()
+            expect(pushResult).toBe(4);
+            expect(stack.size()).toBe(4)
+            expect(typeof stack.top()).toBe("string")
+            expect(stack.top()).toBe("d")
 
-        expect(stack.isEmpty()).toBe(false);
+            pushResult = stack.push('e')
 
-        expect(stack.push("d")).toBe(4);
-        expect(stack.size()).toBe(4)
-        expect(typeof stack.top()).toBe("string")
-        expect(stack.top()).toBe("d")
+            expect(pushResult).toBe(5)
+            expect(stack.size()).toBe(5)
+            expect(typeof stack.top()).toBe("string")
+            expect(stack.top()).toBe("e")
+        })
+    });
+    
+    describe('pop tests', () => {
+        it(' should pop some items from the stack', () => {
+            stack = new Stack(-1, 'd', 'c', 'b', 'a')
 
+            expect(stack.capacity()).toBe(-1)
 
-        expect(stack.push("e")).toBe(5)
-        expect(stack.size()).toBe(5)
-        expect(typeof stack.top()).toBe("string")
-        expect(stack.top()).toBe("e")
+            console.log(stack.contents);
 
-        //stack.contents.map((elt: string) => console.log(elt))
-    })
+            expect(stack.isFull()).toBeFalsy()
+            expect(stack.size()).toBe(4)
 
-    it(' should pop some items from the stack', () => {
-        //stack.contents.map((elt: string) => console.log(elt))
+            expect(stack.top()).toBe('d')
+            expect(stack.pop()).toBe('d')
+            expect(stack.size()).toBe(3)
+            expect(stack.contents).toEqual(['c', 'b', 'a'])
+            console.log(stack.contents);
 
-        expect(stack.pop()).toBe("e")
-        expect(stack.size()).toBe(4)
-        expect(stack.top()).toBe("d")
+            expect(stack.top()).toBe('c')
+            expect(stack.pop()).toBe('c')
+            expect(stack.size()).toBe(2)
+            expect(stack.contents).toEqual(['b', 'a'])
+            console.log(stack.contents);
 
-        expect(stack.pop()).toBe("d")
-        expect(stack.size()).toBe(3)
-        expect(stack.top()).toBe("c")
+            expect(stack.top()).toBe('b')
+            expect(stack.pop()).toBe('b')
+            expect(stack.size()).toBe(1)
+            expect(stack.contents).toEqual(['a'])
+            console.log(stack.contents);
 
-        expect(stack.pop()).toBe("c")
-        expect(stack.size()).toBe(2)
-        expect(stack.top()).toBe("b")
-    })
+            expect(stack.top()).toBe('a')
+            expect(stack.pop()).toBe('a')
+            expect(stack.size()).toBe(0)
+            expect(stack.isEmpty()).toBeTruthy()
+            expect(stack.contents).toEqual([])
+            console.log(stack.contents);
 
-    */
+            expect(stack.top()).toBeNull()
+            expect(stack.pop()).toBeUndefined()
+        })
+    });
 })
