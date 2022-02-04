@@ -16,11 +16,7 @@ export class Stack<T> implements IStack<T> {
     }
 
     size(): number {
-        if (this._capacity === -1) { // no capacity defined
-            return this.stack.length
-        } else {
-            return 0
-        }
+        return this.stack.length
     }
 
     capacity(): number {
@@ -31,7 +27,7 @@ export class Stack<T> implements IStack<T> {
         if (this._capacity === -1) { // no capacity defined
             return this.stack.unshift(...items)
         } else {
-            return 0
+            return (this.isFull() ? 0: this.stack.unshift(...items))
         }
     }
 
@@ -39,7 +35,7 @@ export class Stack<T> implements IStack<T> {
         if (this._capacity === -1) { // no capacity defined
             return <T>this.stack.shift()
         } else {
-            return null!
+            return (this.isEmpty() ? null!: <T>this.stack.shift())
         }
     }
 
@@ -48,18 +44,14 @@ export class Stack<T> implements IStack<T> {
     }
 
     isEmpty(): boolean {
-        if (this._capacity === -1) { // no capacity defined
-            return (this.size() === 0 ? true: false)
-        } else {
-            return false
-        }
+       return (this.stack.length === 0 ? true: false)
     }
 
     isFull(): boolean {
         if (this._capacity === -1) { // no capacity defined
             return false
         } else {
-            return true;
+            return (this.stack.length === this._capacity ? true: false)
         }
     }
 }
