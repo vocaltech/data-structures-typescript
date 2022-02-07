@@ -1,17 +1,15 @@
 import { Queue } from '../Queue';
 
-describe('tests with numbers - initial capacity ', () => {
+describe('tests with numbers (initial capacity)', () => {
     let queue: Queue<number>;
 
-    describe('constructor with some checks ', () => {
-        it(' should construct a queue with initial capacity', () => {
-            queue = new Queue<number>(4);
+    describe('constructor with initial capacity, without params', () => {
+        it(' should construct a queue without params', () => {
+            const capacity = 4
+            queue = new Queue<number>(capacity);
       
-            const capacity = queue.capacity();
-            expect(capacity).toBe(4)
-      
-            const size = queue.size()
-            expect(size).toBe(0)
+            expect(queue.capacity()).toBe(4)
+            expect(queue.size()).toBe(0)
         })
 
         it(' isFull should be false', () => {
@@ -23,18 +21,70 @@ describe('tests with numbers - initial capacity ', () => {
         });
         
         it (' dequeue after init should return null', () => {    
-            let dq = queue.dequeue();
-            expect(dq).toBeNull()
-    
-            console.log('--- should dequeue after init ---');
-            console.log(queue.contents());
+            expect(queue.dequeue()).toBeNull()
         })
     
         it(' peek after init should return null', () => {
             expect(queue.peek()).toBeNull();
         });
     });
+
+    describe('constructor with initial capacity, with params', () => {
+        it(' should construct a queue with params', () => {
+            const capacity = 4;
+            queue = new Queue<number>(capacity, 9, 5, 7);
+
+            expect(queue.capacity()).toBe(4)
+            expect(queue.size()).toBe(3)
+        })
+
+        it(' isFull should be false', () => {
+            expect(queue.isFull()).toBeFalsy()
+        });
+
+        it(' should construct another queue with params', () => {
+            const capacity = 4;
+            queue = new Queue<number>(capacity, 9, 5, 7, 3);
+
+            expect(queue.capacity()).toBe(4)
+            expect(queue.size()).toBe(4)
+            expect(queue.contents()).toEqual([9, 5, 7, 3])
+        })
+
+        it(' isFull should be true', () => {
+            expect(queue.isFull()).toBeTruthy()
+        });
+
+        it(' isEmpty should be false', () => {
+            expect(queue.isEmpty()).toBeFalsy()
+        });
+
+        it(' peek after init should return 9', () => {
+            expect(queue.peek()).toBe(9);
+        });
+        
+        it (' dequeue #1 should return 9', () => {    
+            expect(queue.dequeue()).toBe(9)
+            expect(queue.size()).toBe(3)
+            expect(queue.contents()).toEqual([5, 7, 3, undefined])
     
+            console.log('--- should dequeue #1 ---');
+            console.log(queue.contents());
+            console.log(`size: ${queue.size()}`);
+        })
+
+        it (' dequeue #2 should return 5', () => {    
+            expect(queue.dequeue()).toBe(5)
+            expect(queue.size()).toBe(2)
+            expect(queue.contents()).toEqual([7, 3, undefined, undefined])
+    
+            console.log('--- should dequeue #2 ---');
+            console.log(queue.contents());
+            console.log(`size: ${queue.size()}`);
+        })
+    });
+    
+    /*
     describe('enqueue tests', () => {
         it(' should enqueue(9, 3)', () => {
             let enqueueResult = queue.enqueue(9, 3);
@@ -152,4 +202,5 @@ describe('tests with numbers - initial capacity ', () => {
             expect(queue.contents()).toEqual([6, undefined, undefined, undefined])
         });        
     });
+    */
 })
