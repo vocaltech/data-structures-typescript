@@ -1,10 +1,10 @@
 import { Stack } from '../Stack';
 
-describe('tests with strings - with capacity', () => {
+describe('tests with strings (initial capacity)', () => {
     let stack: Stack<string>;
 
-    describe('constructor1 with some checks', () => {
-        it(' should construct a stack with capacity', () => {
+    describe('constructor with initial capacity, without params', () => {
+        it(' should construct a stack without params', () => {
             stack = new Stack(4)
 
             expect(stack.capacity()).toBe(4)
@@ -29,8 +29,8 @@ describe('tests with strings - with capacity', () => {
         });
     });
 
-    describe('constructor2 with some checks', () => {
-        it(' should construct a stack with capacity, with args', () => {
+    describe('constructor with initial capacity, with params', () => {
+        it(' should construct a stack with params', () => {
             stack = new Stack(4, '1', '2', '3')
 
             expect(stack.capacity()).toBe(4)
