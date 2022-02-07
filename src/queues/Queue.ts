@@ -7,11 +7,9 @@ export class Queue<T> implements IQueue<T> {
 
     constructor(capacity?: number, ...args: T[]) {
         if (capacity) { // capacity is defined
-            this.queue = new Array<T>(capacity);
             this._capacity = capacity;
-        } else {
-            this.queue = [...args];
         }
+        this.queue = [...args];
     }
 
     contents(): T[] {
@@ -22,15 +20,6 @@ export class Queue<T> implements IQueue<T> {
         return this._capacity;
     }
     
-    size(): number {
-        if (this._capacity === -1) { // no capacity defined
-            return this.queue.length;
-        } else {
-            return this.enqueueIdx;
-        }
-        
-    }
-
     enqueue(...args: T[]): number {
         if (this._capacity === -1) { // no capacity defined
             return this.queue.push(...args);
@@ -54,11 +43,25 @@ export class Queue<T> implements IQueue<T> {
         }
     }
 
+    peek(): T {
+        return (this.isEmpty() ? null!: this.queue[0])
+    }
+
+    // TODO: dequeue()
     dequeue(): T {
         if (this._capacity === -1) { // no capacity defined
             return <T>this.queue.shift();
         } else {
             if (! this.isEmpty()) {
+
+                console.log(`[dequeue()] enqueueIdx before: ${this.enqueueIdx} / size: ${this.size()}`);
+
+                if ( (this.enqueueIdx === 0) && (this.size() > 0) ) { // no dequeue with args in the constructor
+                    this.enqueueIdx = this.size()
+                }
+
+                console.log(`[dequeue()] enqueueIdx after: ${this.enqueueIdx} / size: ${this.size()}`);
+
                 const dequeue = <T>this.queue.shift();
                 this.queue = [...this.queue, undefined!]
                 this.enqueueIdx--
@@ -69,23 +72,31 @@ export class Queue<T> implements IQueue<T> {
         }
     }
 
-    peek(): T {
-        return (this.isEmpty() ? null!: this.queue[0])
-    }
-
+    // TODO: isEmpty()
     isEmpty(): boolean {
         if (this._capacity === -1) { // no capacity defined
             return (this.queue.length === 0 ? true: false)
         } else {
-            return (this.enqueueIdx === 0)
+           // return (this.enqueueIdx === 0)
+           return (this.queue.length === 0)
         }
     }
 
+    // TODO: isFull()
     isFull(): boolean  {
         if (this._capacity === -1) { // no capacity defined
             return false
         } else {
-            return this.enqueueIdx === this._capacity
+            //return this.enqueueIdx === this._capacity
+            return this.queue.length === this._capacity
+        }
+    }
+
+    size(): number {
+        if (this._capacity === -1) { // no capacity defined
+            return this.queue.length;
+        } else {
+            return (this.enqueueIdx === 0 ? this.queue.length: this.enqueueIdx)
         }
     }
 }
