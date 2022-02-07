@@ -1,10 +1,10 @@
 import { Queue } from '../Queue'
 
-describe('tests with numbers - no capacity', () => {
+describe('tests with numbers (no capacity)', () => {
     let queue: Queue<number>
 
-    describe('constructor with some checks', () => {
-        it(' should construct a queue with no capacity', () => {
+    describe('constructor without params (no capacity)', () => {
+        it(' should construct a queue without params', () => {
             queue = new Queue<number>();
 
             const capacity = queue.capacity();
@@ -23,20 +23,47 @@ describe('tests with numbers - no capacity', () => {
         });
         
         it(' dequeue after init should return undefined', () => {    
-            let dq = queue.dequeue();
-            expect(dq).toBeUndefined()
-    
-            console.log('--- should dequeue after init ---');
-            console.log(queue.contents());
+            expect(queue.dequeue()).toBeUndefined()
         })
     
         it(' peek after init should return null', () => {
             expect(queue.peek()).toBeNull();
         });
     });
+
+    describe('constructor with params (no capacity)', () => {
+        it(' should construct a queue with params', () => {
+            const capacity = -1
+            queue = new Queue<number>(capacity, 10, 3)
+
+            expect(queue.capacity()).toBe(-1)
+            expect(queue.size()).toBe(2)
+        });
+
+        it(' isFull should be false', () => {
+            expect(queue.isFull()).toBeFalsy()
+        });
+
+        it( ' isEmpty should be false', () => {
+            expect(queue.isEmpty()).toBeFalsy()
+        });
+
+        it(' peek after init should return 10', () => {
+            const peek = queue.peek()
+            expect(peek).toBe(10);
+            expect(typeof peek).toBe('number')
+        });
+        
+        it(' dequeue after init should return 10', () => {    
+            expect(queue.dequeue()).toBe(10)
+            expect(queue.contents()).toEqual([3])
+        })    
+    });
     
     describe('enqueue tests', () => {
         it(' should enqueue(9, 3)', () => {
+            queue = new Queue<number>();
+
             let enqueueResult = queue.enqueue(9, 3);
     
             expect(queue.isEmpty()).toBeFalsy()
@@ -50,9 +77,6 @@ describe('tests with numbers - no capacity', () => {
 
             expect(queue.contents()).toEqual(expect.arrayContaining([9, 3]))
             expect(queue.contents()).toEqual([9, 3])
-
-            console.log('--- should enqueue(9,3) --- ');
-            console.log(queue.contents());
         });
 
         it(' should enqueue(2)', () => {
@@ -69,9 +93,6 @@ describe('tests with numbers - no capacity', () => {
 
             expect(queue.contents()).toEqual(expect.arrayContaining([9, 3, 2]))
             expect(queue.contents()).toEqual([9, 3, 2])
-    
-            console.log('--- should enqueue(2) --- ');
-            console.log(queue.contents());
         });
 
         it(' should enqueue(5, 7, 8, 1)', () => {
@@ -88,14 +109,14 @@ describe('tests with numbers - no capacity', () => {
 
             expect(queue.contents()).toEqual(expect.arrayContaining([9, 3, 2, 5]))
             expect(queue.contents()).toEqual([9, 3, 2, 5, 7, 8, 1])
-    
-            console.log('--- should enqueue(5, 7, 8, 1) --- ');
-            console.log(queue.contents());
         });
     });
 
     describe('dequeue tests', () => {
         it(' should dequeue 1', () => {
+            const capacity = -1
+            queue = new Queue<number>(capacity, 9, 3, 2, 5, 7, 8, 1)
+
             // [9, 3, 2, 5, 7, 8, 1]
             expect(queue.peek()).toBe(9)
             expect(queue.dequeue()).toBe(9)
@@ -129,6 +150,8 @@ describe('tests with numbers - no capacity', () => {
 
     describe('tests with enqueue/dequeue mixins', () => {
         it(' should enqueue some values', () => {
+            queue = new Queue<number>()
+            
             let enqueueResult = queue.enqueue(9)
             expect(queue.size()).toBe(1);
             expect(enqueueResult).toBe(1);
@@ -152,5 +175,4 @@ describe('tests with numbers - no capacity', () => {
             expect(queue.contents()).toEqual([6])
         });        
     });
-    
 });
