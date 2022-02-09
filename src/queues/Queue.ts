@@ -8,7 +8,9 @@ export class Queue<T> implements IQueue<T> {
     constructor(capacity?: number, ...args: T[]) {
         if (capacity) { // capacity is defined
             this._capacity = capacity;
+            this.enqueueIdx = args.length
         }
+
         this.queue = [...args];
     }
 
@@ -29,6 +31,7 @@ export class Queue<T> implements IQueue<T> {
             }
 
             let curIdx = 0;
+
             for (const elt of this.queue) {
                 if (curIdx === args.length) {
                     break;
@@ -47,21 +50,14 @@ export class Queue<T> implements IQueue<T> {
         return (this.isEmpty() ? null!: this.queue[0])
     }
 
-    // TODO: dequeue()
     dequeue(): T {
         if (this._capacity === -1) { // no capacity defined
             return <T>this.queue.shift();
         } else {
             if (! this.isEmpty()) {
-
-                console.log(`[dequeue()] enqueueIdx before: ${this.enqueueIdx} / size: ${this.size()}`);
-
-                if ( (this.enqueueIdx === 0) && (this.size() > 0) ) { // no dequeue with args in the constructor
+                if ( (this.enqueueIdx === 0) && (this.size() > 0) ) { // 1st dequeue with args in the constructor
                     this.enqueueIdx = this.size()
                 }
-
-                console.log(`[dequeue()] enqueueIdx after: ${this.enqueueIdx} / size: ${this.size()}`);
-
                 const dequeue = <T>this.queue.shift();
                 this.queue = [...this.queue, undefined!]
                 this.enqueueIdx--
@@ -72,23 +68,19 @@ export class Queue<T> implements IQueue<T> {
         }
     }
 
-    // TODO: isEmpty()
     isEmpty(): boolean {
         if (this._capacity === -1) { // no capacity defined
             return (this.queue.length === 0 ? true: false)
         } else {
-           // return (this.enqueueIdx === 0)
-           return (this.queue.length === 0)
+           return this.size() === 0
         }
     }
 
-    // TODO: isFull()
     isFull(): boolean  {
         if (this._capacity === -1) { // no capacity defined
             return false
         } else {
-            //return this.enqueueIdx === this._capacity
-            return this.queue.length === this._capacity
+            return this.enqueueIdx === this._capacity
         }
     }
 
@@ -96,7 +88,7 @@ export class Queue<T> implements IQueue<T> {
         if (this._capacity === -1) { // no capacity defined
             return this.queue.length;
         } else {
-            return (this.enqueueIdx === 0 ? this.queue.length: this.enqueueIdx)
+            return (this.enqueueIdx === 0 ? 0: this.enqueueIdx)
         }
     }
 }
