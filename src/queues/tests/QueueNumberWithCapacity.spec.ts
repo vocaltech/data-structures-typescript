@@ -3,7 +3,7 @@ import { Queue } from '../Queue';
 describe('tests with numbers (initial capacity)', () => {
     let queue: Queue<number>;
 
-    describe('constructor with initial capacity, without params', () => {
+    describe.skip('constructor with initial capacity, without params', () => {
         it(' should construct a queue without params', () => {
             const capacity = 4
             queue = new Queue<number>(capacity);
@@ -29,8 +29,8 @@ describe('tests with numbers (initial capacity)', () => {
         });
     });
 
-    describe('constructor with initial capacity, with params', () => {
-        it(' should construct a queue with params', () => {
+    describe.skip('constructor with initial capacity, with params', () => {
+        it(' should construct a queue with params (not full)', () => {
             const capacity = 4;
             queue = new Queue<number>(capacity, 9, 5, 7);
 
@@ -42,7 +42,11 @@ describe('tests with numbers (initial capacity)', () => {
             expect(queue.isFull()).toBeFalsy()
         });
 
-        it(' should construct another queue with params', () => {
+        it(' isEmpty should be false', () => { 
+            expect(queue.isEmpty()).toBeFalsy()
+        })
+
+        it(' should construct another queue with params (full)', () => {
             const capacity = 4;
             queue = new Queue<number>(capacity, 9, 5, 7, 3);
 
@@ -66,28 +70,50 @@ describe('tests with numbers (initial capacity)', () => {
         it (' dequeue #1 should return 9', () => {    
             expect(queue.dequeue()).toBe(9)
             expect(queue.size()).toBe(3)
+            expect(queue.isFull()).toBeFalsy()
+            expect(queue.isEmpty()).toBeFalsy()
             expect(queue.contents()).toEqual([5, 7, 3, undefined])
-    
-            console.log('--- should dequeue #1 ---');
-            console.log(queue.contents());
-            console.log(`size: ${queue.size()}`);
         })
 
         it (' dequeue #2 should return 5', () => {    
             expect(queue.dequeue()).toBe(5)
             expect(queue.size()).toBe(2)
+            expect(queue.isFull()).toBeFalsy()
+            expect(queue.isEmpty()).toBeFalsy()
             expect(queue.contents()).toEqual([7, 3, undefined, undefined])
-    
-            console.log('--- should dequeue #2 ---');
-            console.log(queue.contents());
-            console.log(`size: ${queue.size()}`);
+        })
+
+        it (' dequeue #3 should return 7', () => {    
+            expect(queue.dequeue()).toBe(7)
+            expect(queue.size()).toBe(1)
+            expect(queue.isFull()).toBeFalsy()
+            expect(queue.isEmpty()).toBeFalsy()
+            expect(queue.contents()).toEqual([3, undefined, undefined, undefined])
+        })
+
+        it (' dequeue #4 should return 3', () => {    
+            expect(queue.dequeue()).toBe(3)
+            expect(queue.size()).toBe(0)
+            expect(queue.isFull()).toBeFalsy()
+            expect(queue.isEmpty()).toBeTruthy()
+            expect(queue.contents()).toEqual([undefined, undefined, undefined, undefined])
+        })
+
+        it (' dequeue #5 should return null', () => {    
+            expect(queue.dequeue()).toBeNull()
+            expect(queue.size()).toBe(0)
+            expect(queue.isFull()).toBeFalsy()
+            expect(queue.isEmpty()).toBeTruthy()
+            expect(queue.contents()).toEqual([undefined, undefined, undefined, undefined])
         })
     });
     
-    /*
     describe('enqueue tests', () => {
         it(' should enqueue(9, 3)', () => {
+            queue = new Queue<number>(4);
+
             let enqueueResult = queue.enqueue(9, 3);
+            console.log(queue.contents()) // bug: returns []
     
             expect(queue.isEmpty()).toBeFalsy()
             expect(queue.isFull()).toBeFalsy();
@@ -140,6 +166,8 @@ describe('tests with numbers (initial capacity)', () => {
             console.log(queue.contents());
         });
     });
+
+    /*
 
     describe('dequeue tests', () => {
         it(' should dequeue 1', () => {
