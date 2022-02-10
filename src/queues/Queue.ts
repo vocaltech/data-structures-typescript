@@ -9,9 +9,14 @@ export class Queue<T> implements IQueue<T> {
         if (capacity) { // capacity is defined
             this._capacity = capacity;
             this.enqueueIdx = args.length
-        }
 
-        this.queue = [...args];
+            this.queue = Array.from({length: this._capacity}) // fill queue with 'undefined'
+            let sliceQueue = this.queue.slice(0, (this._capacity - args.length))
+            this.queue = [...args, ...sliceQueue]; // fill with 'undefined' according to the args.length and capacity
+
+        } else { // no capacity
+            this.queue = [...args]
+        }
     }
 
     contents(): T[] {
