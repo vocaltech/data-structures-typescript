@@ -3,7 +3,7 @@ import { Queue } from '../Queue';
 describe('tests with numbers (initial capacity)', () => {
     let queue: Queue<number>;
 
-    describe.skip('constructor with initial capacity, without params', () => {
+    describe('constructor with initial capacity, without params', () => {
         it(' should construct a queue without params', () => {
             const capacity = 4
             queue = new Queue<number>(capacity);
@@ -29,7 +29,7 @@ describe('tests with numbers (initial capacity)', () => {
         });
     });
 
-    describe.skip('constructor with initial capacity, with params', () => {
+    describe('constructor with initial capacity, with params', () => {
         it(' should construct a queue with params (not full)', () => {
             const capacity = 4;
             queue = new Queue<number>(capacity, 9, 5, 7);
@@ -111,9 +111,7 @@ describe('tests with numbers (initial capacity)', () => {
     describe('enqueue tests', () => {
         it(' should enqueue(9, 3)', () => {
             queue = new Queue<number>(4);
-
             let enqueueResult = queue.enqueue(9, 3);
-            console.log(queue.contents()) // bug: returns []
     
             expect(queue.isEmpty()).toBeFalsy()
             expect(queue.isFull()).toBeFalsy();
@@ -125,9 +123,6 @@ describe('tests with numbers (initial capacity)', () => {
 
             expect(queue.contents()).toEqual(expect.arrayContaining([9, 3]))
             expect(queue.contents()).toEqual([9, 3, undefined, undefined])
-
-            console.log('--- should enqueue(9,3) --- ');
-            console.log(queue.contents());
         });
 
         it(' should enqueue(2)', () => {
@@ -143,9 +138,6 @@ describe('tests with numbers (initial capacity)', () => {
 
             expect(queue.contents()).toEqual(expect.arrayContaining([9, 3, 2]))
             expect(queue.contents()).toEqual([9, 3, 2, undefined])
-    
-            console.log('--- should enqueue(2) --- ');
-            console.log(queue.contents());
         });
 
         it(' should enqueue(5, 7, 8, 1)', () => {
@@ -161,37 +153,35 @@ describe('tests with numbers (initial capacity)', () => {
 
             expect(queue.contents()).toEqual(expect.arrayContaining([9, 3, 2, 5]))
             expect(queue.contents()).toEqual([9, 3, 2, 5])
-    
-            console.log('--- should enqueue(5, 7, 8, 1) --- ');
-            console.log(queue.contents());
         });
     });
 
-    /*
-
     describe('dequeue tests', () => {
-        it(' should dequeue 1', () => {
+        it(' should dequeue #1', () => {
+            const capacity = 4
+            queue = new Queue<number>(capacity, 9, 3, 2, 5)
+
             // [9, 3, 2, 5]
             expect(queue.peek()).toBe(9)
             expect(queue.dequeue()).toBe(9)
             expect(queue.contents()).toEqual([3, 2, 5, undefined])
         });
 
-        it(' should dequeue 2', () => {
+        it(' should dequeue #2', () => {
             // [3, 2, 5, undefined]
             expect(queue.peek()).toBe(3)
             expect(queue.dequeue()).toBe(3)
             expect(queue.contents()).toEqual([2, 5, undefined, undefined])
         });
 
-        it(' should dequeue 3', () => {
+        it(' should dequeue #3', () => {
             // [2, 5, undefined, undefined]
             expect(queue.peek()).toBe(2)
             expect(queue.dequeue()).toBe(2)
             expect(queue.contents()).toEqual([5, undefined, undefined, undefined])
         });
 
-        it(' should dequeue 4', () => {
+        it(' should dequeue #4', () => {
             // [5, undefined, undefined, undefined]
             expect(queue.peek()).toBe(5)
             expect(queue.dequeue()).toBe(5)
@@ -205,8 +195,11 @@ describe('tests with numbers (initial capacity)', () => {
         });
     });
 
-    describe('tests with enqueue/dequeue mixins', () => {
+    describe('tests with enqueue/dequeue mixins (without params)', () => {
         it(' should enqueue some values', () => {
+            const capacity = 4
+            queue = new Queue<number>(capacity)
+
             let enqueueResult = queue.enqueue(9)
             expect(queue.size()).toBe(1);
             expect(enqueueResult).toBe(1);
@@ -230,5 +223,34 @@ describe('tests with numbers (initial capacity)', () => {
             expect(queue.contents()).toEqual([6, undefined, undefined, undefined])
         });        
     });
-    */
+
+    describe('tests with enqueue/dequeue mixins (with params)', () => {
+        it(' should enqueue some values', () => {
+            const capacity = 4
+            queue = new Queue<number>(capacity, 5, 7)
+
+            let enqueueResult = queue.enqueue(9)
+            expect(queue.size()).toBe(3);
+            expect(enqueueResult).toBe(3);
+            expect(queue.contents()).toEqual([5, 7, 9, undefined])
+            
+            enqueueResult = queue.enqueue(8, 6);
+            expect(enqueueResult).toBe(4)
+            expect(queue.size()).toBe(4)
+            expect(queue.isFull()).toBeTruthy()
+            expect(queue.contents()).toEqual([5, 7, 9, 8])
+        });
+
+        it(' should dequeue some values', () => {
+            expect(queue.peek()).toBe(5)
+            expect(queue.dequeue()).toBe(5)
+            expect(queue.contents()).toEqual([7, 9, 8, undefined])
+
+            expect(queue.peek()).toBe(7)
+            expect(queue.dequeue()).toBe(7)
+            expect(queue.size()).toBe(2)
+            expect(queue.capacity()).toBe(4)
+            expect(queue.contents()).toEqual([9, 8, undefined, undefined])
+        });        
+    });
 })
