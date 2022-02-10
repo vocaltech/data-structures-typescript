@@ -5,36 +5,60 @@
 
 <code>constructor(capacity?: number, ...args: T[])</code>
 
-**Constructor - without initial capacity**
+**Constructor - without capacity**
 ```
-new Queue<string>()
-new Queue<string>('v', 'o'); // no capacity, with values
+// without initial params
+new Queue<number>(); 
 
+// with params
+const capacity = -1
+new Queue<number>(capacity, 10, 3)
 ```
 
-**Constructor - with initial capacity**
+**Constructor - with capacity**
 ```
-new Queue<string>(4); // initial capacity: 4
-new Queue<string>(4, 'v', 'o'); // initial capacity: 4, with values
+// without initial params
+const capacity = 4
+queue = new Queue<number>(capacity);
 
+// with params
+const capacity = 4;
+queue = new Queue<number>(capacity, 9, 5, 7);
+```
+
+**Methods**
+```
+// return the contents of the queue
+contents(): T[]
+
+// return the capacity of the queue
+// Note: -1 is returned if any capacity is defined
+capacity(): number
+
+// enqueue some values and return the size of the queue
+enqueue(...args: T[]): number
+
+// return the first element of the queue (without dequeueing)
+peek(): T
+
+// dequeue and return the element
+dequeue(): T
+
+// return true if the queue is empty, 
+// else return false
+isEmpty(): boolean
+
+// return true if the queue is full, 
+// else return false
+// Note: always return false for queue WITHOUT capacity
+isFull(): boolean
+
+// return the size of the queue
+size(): number
 ```
 
 **Usage**
 ```
-// constructor
-let q = new Queue<string>('v', 'o')
-
-// enqueue 1 string and returns the size of queue
-q.enqueue('c'); // returns 3
-
-// returns the head of the queue (without dequeuing)
-q.peek(); // returns 'v'
-
-// returns the size of the queue
-queue.size(); // returns 3
-
-// dequeue
-queue.dequeue(); // returns 'v'
 ```
 
 > ### Stacks
