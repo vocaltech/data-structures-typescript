@@ -16,6 +16,7 @@
     "prepare": "npm run build",
     "test-queue-number-capacity": "jest --runInBand ./src/queues/tests/QueueNumberWithCapacity.spec.ts",
     "test-queue-number-no-capacity": "jest --runInBand ./src/queues/tests/QueueNumberNoCapacity.spec.ts",
+    "test-queue-location-no-capacity": "jest --runInBand ./src/queues/tests/QueueLocationNoCapacity.spec.ts",
     "test-stack-string-no-capacity": "jest --runInBand ./src/stacks/tests/StackStringNoCapacity.spec.ts",
     "test-stack-string-capacity": "jest --runInBand ./src/stacks/tests/StackStringCapacity.spec.ts",
     "test-linked-list-simple": "jest --runInBand ./src/linked-lists/tests/LinkedListSimple.spec.ts",
