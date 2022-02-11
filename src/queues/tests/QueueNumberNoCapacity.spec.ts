@@ -113,7 +113,7 @@ describe('tests with numbers (no capacity)', () => {
     });
 
     describe('dequeue tests', () => {
-        it(' should dequeue 1', () => {
+        it(' should dequeue #1', () => {
             const capacity = -1
             queue = new Queue<number>(capacity, 9, 3, 2, 5, 7, 8, 1)
 
@@ -123,14 +123,14 @@ describe('tests with numbers (no capacity)', () => {
             expect(queue.contents()).toEqual([3, 2, 5, 7, 8, 1])
         });
 
-        it(' should dequeue 2', () => {
+        it(' should dequeue #2', () => {
             // [3, 2, 5, 7, 8, 1]
             expect(queue.peek()).toBe(3)
             expect(queue.dequeue()).toBe(3)
             expect(queue.contents()).toEqual([2, 5, 7, 8, 1])
         });
 
-        it(' should dequeue 3', () => {
+        it(' should dequeue #3', () => {
             // [2, 5, 7, 8, 1]
             expect(queue.peek()).toBe(2)
             expect(queue.dequeue()).toBe(2)
