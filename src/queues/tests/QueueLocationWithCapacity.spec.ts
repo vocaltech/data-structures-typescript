@@ -30,12 +30,26 @@ describe('tests with locations (initial capacity)', () => {
         });
     })
 
-    // TODO: constructor with initial capacity, with params
     describe('constructor with initial capacity, with params', () => {
         it(' should construct a queue with params (not full)', () => {
+            const capacity = 2
+            queue = new Queue<Location>(capacity, new Location(45.3, 1.5, new Date()))
 
-
+            expect(queue.capacity()).toBe(2)
+            expect(queue.size()).toBe(1)
         })
+
+        it(' isFull should be false', () => {
+            expect(queue.isFull()).toBeFalsy()
+        });
+
+        it( ' isEmpty should be false', () => {
+            expect(queue.isEmpty()).toBeFalsy()
+        });
+    
+        it(' peek after init should return a Location', () => {
+            expect(queue.peek().constructor).toBe(Location)
+        });
     })
 
     // TODO: enqueue tests
