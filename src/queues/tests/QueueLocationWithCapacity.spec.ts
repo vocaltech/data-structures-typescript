@@ -54,8 +54,15 @@ describe('tests with locations (initial capacity)', () => {
 
     // TODO: enqueue tests
     describe('enqueue tests', () => {
-        it(' should enqueue(location1, location2)', () => {
+        it(' should enqueue 1 location and queue should be full', () => {
+            const capacity = 2
+            queue = new Queue<Location>(capacity, new Location(45.3, 1.5, new Date()))
 
+            queue.enqueue(new Location(41.6, 1.2, new Date()))
+
+            expect(queue.size()).toBe(2)
+            expect(queue.isFull()).toBeTruthy()
+            
         })
     })
 
