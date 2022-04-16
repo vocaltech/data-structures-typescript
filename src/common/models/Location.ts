@@ -1,7 +1,7 @@
 export class Location {
-    lt: number; // latitude
-    lg: number; // longitude
-    ts: Date; // timestamp
+    private lt: number; // latitude
+    private lg: number; // longitude
+    private ts: Date; // timestamp
 
     constructor(lt: number, lg: number, ts: Date) {
         this.lt = lt;
