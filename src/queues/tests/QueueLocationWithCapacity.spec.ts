@@ -52,7 +52,7 @@ describe('tests with locations (initial capacity)', () => {
         });
     })
 
-    // TODO: enqueue tests
+    // TODO: to cont
     describe('enqueue tests', () => {
         it(' should enqueue 1 location and queue should be full', () => {
             const capacity = 2
@@ -62,6 +62,9 @@ describe('tests with locations (initial capacity)', () => {
 
             expect(queue.size()).toBe(2)
             expect(queue.isFull()).toBeTruthy()
+
+            expect(queue.peek().latitude).toBe(45.3)
+            expect(queue.peek().longitude).toBe(1.5)
             
         })
     })
